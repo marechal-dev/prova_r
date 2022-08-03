@@ -1,0 +1,63 @@
+---
+title: "Questão 2"
+author: "Pietro Piva Vieira"
+date: "1° de Agosto de 2022"
+output:
+  word_document:
+    toc: FALSE
+  html_document:
+    toc: FALSE
+---
+
+```{r include = FALSE}
+# Primeiro, definimos o espaço de trabalho
+workingDirectory = getwd()
+setwd(workingDirectory)
+
+library(knitr)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introdução
+Para a Questão 2, a associação entre idade do imóvel e taxas cobradas deve ser avaliada através do diagrama de dispersão e coeficiente de correlação. Para tanto, um banco de dados é fornecido:
+```{r}
+# Realizamos a leitura do banco de dados
+zCityData = read.table("TRABALHO2.txt", header = TRUE)
+
+# Com a biblioteca knitr, estruturamos uma tabela
+knitr::kable(zCityData, caption = "Dados de Imóveis Residenciais comercializados na Cidade Z em 2019")
+```
+
+# Coeficiente de Correlação de Pearson
+Para calcular o Coeficiente de Correlação de Pearson, armazenamos e ordenamos os valores das variáveis em estudo:
+```{r}
+# Questão 2:
+# Separamos as variáveis de idade e taxas pagas
+propertiesAges = zCityData$id
+propertiesTaxes = zCityData$tax
+
+# Realizamos ordenação dos dados
+sort(propertiesAges)
+sort(propertiesTaxes)
+```
+E então calculamos o Coeficiente:
+```{r}
+# Calculamos o coeficiente de correlação linear de Pearson
+correlationCoefficient = cor(propertiesAges, propertiesTaxes, method = "pearson")
+correlationCoefficient
+```
+Por ser um valor negativo muito próximo de zero, podemos inferir que as duas variáveis não tem nenhuma relação entre si!
+
+# Diagrama de Dispersão
+Com as variáveis armazenadas e ordenadas, e o coeficiente de correlação calculado, podemos gerar o *Diagrama de Dispersão*:
+```{r}
+# Geramos um gráfico de dispersão!
+plot(propertiesAges, propertiesTaxes, ylab = "Taxas cobradas", xlab = "Idade do imóvel", main = "Relação Taxas cobradas e Idade do imóvel")
+```
+<br/>
+<br/>
+O Diagrama nos confirma o que foi "dito" pelo Coeficiente de Correlação, mostrando, enfim, que não há correlação entre as duas variáveis.
+
+
+# Conclusão
+Conclui-se que não há nenhuma relação entre as duas variáveis.
